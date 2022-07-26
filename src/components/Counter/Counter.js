@@ -24,7 +24,6 @@ class Counter extends React.Component{
                 value: prevState.value + 1 
             }
         } );
-
         // const targetNodeName = event.target.nodeName
         // setTimeout(() => {
         //     console.log(targetNodeName)
