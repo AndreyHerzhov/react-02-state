@@ -2,7 +2,8 @@ import React, {Component} from "react";
 // import Counter from "./Counter";
 // import Dropdown from "./Dropdown"
 // import ColorPicker from "./ColorPicker"
-import TodoList from "./TodoList";
+// import TodoList from "./TodoList";
+import Form from "./Form";
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -22,6 +23,8 @@ class App extends Component {
       {id: 'id-3', text: 'Пережить Redux', completed: false},
       {id: 'id-4', text: 'Подготовитсья к собеседованию', completed: true}
     ],
+    inputValue: '',
+    
   };
 
   deleteTodo = (todoId) => {
@@ -29,16 +32,35 @@ class App extends Component {
       todos: prevState.todos.filter(todo => todo.id !== todoId)
     }))
   }
+
+  formSubmitHandler = data => {
+    console.log(data)
+    
+  }
+
+ 
+
+//   handleInputChange = event => {
+//      this.setState({inputValue: event.target.value})
+//   }
+
+//   handleNameChange = event => {
+//      this.setState({name: event.target.value})
+//   }
+
+//   handleNickChange = event => {
+//     this.setState({nick: event.target.value})
+//  }
   
   render() {
-    const { todos } = this.state
+    // const { todos } = this.state
 
-    const completedTodos = todos.reduce(
-      (acc, todo) => (todo.completed ? acc + 1 : acc),
-      0,
-      )
+    // const completedTodos = todos.reduce(
+    //   (acc, todo) => (todo.completed ? acc + 1 : acc),
+    //   0,
+    //   )
 
-      console.log(completedTodos)
+      // console.log(completedTodos)
 
     return (
       <div
@@ -52,14 +74,24 @@ class App extends Component {
           }}
         >
           <h1>Состояние компонента</h1>
+          
+          <Form onSubmit={this.formSubmitHandler}/>
+ 
+          {/* <input type="text" value={this.state.inputValue} onChange={this.handleInputChange}/> */}
+          
           {/* <Counter initialValue={0}/>
           <Dropdown/>
           <ColorPicker options={colorPickerOptions}/> */}
-          <div>
+
+          {/* <div>
             <p>Общее кол-во: {todos.length}</p>
             <p>Кол-во выполненых: {completedTodos}</p>
-          </div>
-          <TodoList todos={todos} onDeleteTodo={this.deleteTodo}/>
+          </div> */}
+
+          {/* <TodoList 
+            todos={todos} 
+            onDeleteTodo={this.deleteTodo}
+          /> */}
       </div>
     );
   }
