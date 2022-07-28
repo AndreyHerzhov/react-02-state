@@ -1,11 +1,13 @@
 import React, {Component} from "react"
 import shortid from "shortid"
 
+
 class Form extends Component {
     state = {
         name: '',
         nick: '',
-        experience: 'senior'
+        experience: 'senior',
+        license: false
     }
 
     nameInputId = shortid.generate()
@@ -22,10 +24,16 @@ class Form extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        console.log(this.state)
+        // console.log(this.state)
         this.props.onSubmit(this.state)
 
         this.reset()
+    }
+
+    handleLicenceChange = e => {
+      // console.log(e.currentTarget.checked)
+
+      this.setState({license: e.currentTarget.checked})
     }
 
     reset = () => {
@@ -88,10 +96,18 @@ class Form extends Component {
                     checked={this.state.experience === "senior"}
                     ></input>     
             </label>
-           
+
+            <label>
+              <input  type="checkbox" 
+                      name="license" 
+                      checked={this.state.license}
+                      onChange={this.handleLicenceChange}
+                      />
+                      Agree
+            </label>
           
 
-            <button type="submit">Send</button>
+            <button type="submit" disabled={!this.state.license}>Send</button>
           </form>
         )
     }

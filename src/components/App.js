@@ -2,8 +2,10 @@ import React, {Component} from "react";
 // import Counter from "./Counter";
 // import Dropdown from "./Dropdown"
 // import ColorPicker from "./ColorPicker"
-// import TodoList from "./TodoList";
+import TodoList from "./TodoList";
 import Form from "./Form";
+import TodoEditor from './TodoEditor'
+import shortid from "shortid";
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -27,14 +29,48 @@ class App extends Component {
     
   };
 
+  addTodo = text => {
+    const todo = {
+      id: shortid.generate(),
+      text,
+      completed: false,
+    }
+
+    this.setState(({todos}) => ({
+      todos: [todo, ...todos]
+    }))
+  }
+
   deleteTodo = (todoId) => {
     this.setState(prevState => ({
       todos: prevState.todos.filter(todo => todo.id !== todoId)
     }))
   }
 
+  toggleCompleted = todoId => {
+    // console.log(todoId)
+
+    // this.setState(prevState => ({
+    //   todos: prevState.todos.map(todo => {
+    //     if(todo.id ===  todoId) {
+    //       return {
+    //         ...todo,
+    //         completed: !todo.completed
+    //       }
+    //     }
+
+    //     return todo
+    //   })
+    // }))
+
+    this.setState(({ todos })=> ({
+      todos: todos.map(todo => todo.id === todoId ? {...todo, completed: !todo.completed }: todo,
+      )
+    }))
+  }
+
   formSubmitHandler = data => {
-    console.log(data)
+    // console.log(data)
     
   }
 
@@ -53,12 +89,12 @@ class App extends Component {
 //  }
   
   render() {
-    // const { todos } = this.state
+    const { todos } = this.state
 
-    // const completedTodos = todos.reduce(
-    //   (acc, todo) => (todo.completed ? acc + 1 : acc),
-    //   0,
-    //   )
+    const completedTodos = todos.reduce(
+      (acc, todo) => (todo.completed ? acc + 1 : acc),
+      0,
+      )
 
       // console.log(completedTodos)
 
@@ -75,23 +111,28 @@ class App extends Component {
         >
           <h1>Состояние компонента</h1>
           
+          
           <Form onSubmit={this.formSubmitHandler}/>
  
           {/* <input type="text" value={this.state.inputValue} onChange={this.handleInputChange}/> */}
           
           {/* <Counter initialValue={0}/>
-          <Dropdown/>
-          <ColorPicker options={colorPickerOptions}/> */}
+          <Dropdown/> */}
+          {/* <ColorPicker options={colorPickerOptions}/> */}
 
-          {/* <div>
+          <TodoEditor onSubmit={this.addTodo}/>
+
+          <div>
             <p>Общее кол-во: {todos.length}</p>
             <p>Кол-во выполненых: {completedTodos}</p>
-          </div> */}
+          </div>
 
-          {/* <TodoList 
+          <TodoList 
             todos={todos} 
             onDeleteTodo={this.deleteTodo}
-          /> */}
+            onToggleCompleted={this.toggleCompleted}  
+
+          />
       </div>
     );
   }
