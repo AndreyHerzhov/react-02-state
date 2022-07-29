@@ -72,7 +72,7 @@ class App extends Component {
   }
 
   formSubmitHandler = data => {
-    // console.log(data)
+    console.log(data)
     
   }
 
