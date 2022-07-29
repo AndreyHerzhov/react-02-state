@@ -3,8 +3,9 @@ import React, {Component} from "react";
 // import Dropdown from "./Dropdown"
 // import ColorPicker from "./ColorPicker"
 import TodoList from "./TodoList";
-import Form from "./Form";
+// import Form from "./Form";
 import TodoEditor from './TodoEditor'
+import Filter from "./Filter/Filter";
 import shortid from "shortid";
 
 // const colorPickerOptions = [
@@ -26,6 +27,7 @@ class App extends Component {
       {id: 'id-4', text: 'Подготовитсья к собеседованию', completed: true}
     ],
     inputValue: '',
+    filter: ''
     
   };
 
@@ -74,6 +76,25 @@ class App extends Component {
     
   }
 
+  changeFilter = (e) => {
+    this.setState({filter: e.currentTarget.value})
+  }
+
+  getVisiblesTodos = () => {
+    const { filter , todos } = this.state
+    const normalizedFilter = filter.toLocaleLowerCase()
+
+    return  todos.filter(todo => 
+      todo.text.toLocaleLowerCase().includes(normalizedFilter)) 
+  }
+
+  getCompletedTodos = () => {
+    const { todos } = this.state
+    return todos.reduce(
+      (acc, todo) => (todo.completed ? acc + 1 : acc),
+      0,
+      )
+  }
  
 
 //   handleInputChange = event => {
@@ -89,19 +110,14 @@ class App extends Component {
 //  }
   
   render() {
-    const { todos } = this.state
+    const { todos, filter } = this.state
+    const visibleTodos = this.getVisiblesTodos()
+    const completedTodos = this.getCompletedTodos()
 
-    const completedTodos = todos.reduce(
-      (acc, todo) => (todo.completed ? acc + 1 : acc),
-      0,
-      )
-
-      // console.log(completedTodos)
-
-    return (
+      
+     return (
       <div
           style={{
-             
             display: 'block',
             justifyContent: 'center',
             alignItems: 'center',
@@ -112,7 +128,7 @@ class App extends Component {
           <h1>Состояние компонента</h1>
           
           
-          <Form onSubmit={this.formSubmitHandler}/>
+          {/* <Form onSubmit={this.formSubmitHandler}/> */}
  
           {/* <input type="text" value={this.state.inputValue} onChange={this.handleInputChange}/> */}
           
@@ -122,13 +138,18 @@ class App extends Component {
 
           <TodoEditor onSubmit={this.addTodo}/>
 
+      
+
+          
+
           <div>
             <p>Общее кол-во: {todos.length}</p>
             <p>Кол-во выполненых: {completedTodos}</p>
           </div>
+          <Filter value={filter} onChange={this.changeFilter}/>
 
           <TodoList 
-            todos={todos} 
+            todos={visibleTodos} 
             onDeleteTodo={this.deleteTodo}
             onToggleCompleted={this.toggleCompleted}  
 
@@ -139,3 +160,5 @@ class App extends Component {
 }
 
 export default App;
+
+ 
