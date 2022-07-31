@@ -8,15 +8,12 @@ class TodoEditor extends Component {
 
     handleChange = e => {
         this.setState({message: e.currentTarget.value})
+         
     }
 
     handleSubmit = e => {
         e.preventDefault()
-
-        // console.log(this.state)
-
-        this.props.onSubmit(this.state.value)
-
+        this.props.onSubmit(this.state.message)
         this.setState({message: ""})
     }
     render() {

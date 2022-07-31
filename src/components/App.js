@@ -31,12 +31,15 @@ class App extends Component {
     
   };
 
-  addTodo = text => {
+  addTodo = message => {
+     
     const todo = {
       id: shortid.generate(),
-      text,
+      text: "",
       completed: false,
     }
+    todo.text = message
+    console.log(todo)
 
     this.setState(({todos}) => ({
       todos: [todo, ...todos]
@@ -85,7 +88,7 @@ class App extends Component {
     const normalizedFilter = filter.toLocaleLowerCase()
 
     return  todos.filter(todo => 
-      todo.text.toLocaleLowerCase().includes(normalizedFilter)) 
+      todo.text.toLowerCase().includes(normalizedFilter)) 
   }
 
   getCompletedTodos = () => {
@@ -136,7 +139,7 @@ class App extends Component {
           <Dropdown/> */}
           {/* <ColorPicker options={colorPickerOptions}/> */}
 
-          <TodoEditor onSubmit={this.addTodo}/>
+          <TodoEditor onSubmit={this.addTodo} value={this.state.inputValue}/>
 
       
 
