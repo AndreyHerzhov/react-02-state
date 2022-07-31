@@ -112,11 +112,15 @@ class App extends Component {
 //     this.setState({nick: event.target.value})
 //  }
   
+  componentDidUpdate() {
+    console.log("App componentDidUpdate")
+  }
+
   render() {
     const { todos, filter } = this.state
     const visibleTodos = this.getVisiblesTodos()
     const completedTodos = this.getCompletedTodos()
-
+    console.log('Render')
       
      return (
       <div
