@@ -2,11 +2,12 @@ import React, {Component} from "react";
 // import Counter from "./Counter";
 // import Dropdown from "./Dropdown"
 // import ColorPicker from "./ColorPicker"
-import TodoList from "./TodoList";
+// import TodoList from "./TodoList";
 // import Form from "./Form";
-import TodoEditor from './TodoEditor'
-import Filter from "./Filter/Filter";
+// import TodoEditor from './TodoEditor'
+// import Filter from "./Filter/Filter";
 import shortid from "shortid";
+import Modal from './Modal/Modal'
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -39,7 +40,7 @@ class App extends Component {
       completed: false,
     }
     todo.text = message
-    console.log(todo)
+    // console.log(todo)
 
     this.setState(({todos}) => ({
       todos: [todo, ...todos]
@@ -75,7 +76,7 @@ class App extends Component {
   }
 
   formSubmitHandler = data => {
-    console.log(data)
+    // console.log(data)
     
   }
 
@@ -111,15 +112,33 @@ class App extends Component {
 //   handleNickChange = event => {
 //     this.setState({nick: event.target.value})
 //  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+    const todos = localStorage.getItem('todos')
+    const parsedTodos = JSON.parse(todos)
+    if(parsedTodos){
+      this.setState({todos: parsedTodos})
+    }
+    console.log(parsedTodos)
+     
+  }
   
-  componentDidUpdate() {
+  componentDidUpdate( prevProps ,prevState ) {
     console.log("App componentDidUpdate")
+    if(this.state.todos !==  prevState.todos) {
+      console.log('Todos has been updated')
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos))
+    }
+    console.log(prevState)
+    console.log(this.state)
   }
 
   render() {
-    const { todos, filter } = this.state
-    const visibleTodos = this.getVisiblesTodos()
-    const completedTodos = this.getCompletedTodos()
+    // const { todos, filter } = this.state
+    // const visibleTodos = this.getVisiblesTodos()
+    // const completedTodos = this.getCompletedTodos()
     console.log('Render')
       
      return (
@@ -133,7 +152,7 @@ class App extends Component {
           }}
         >
           <h1>Состояние компонента</h1>
-          
+          <Modal/>
           
           {/* <Form onSubmit={this.formSubmitHandler}/> */}
  
@@ -143,13 +162,13 @@ class App extends Component {
           <Dropdown/> */}
           {/* <ColorPicker options={colorPickerOptions}/> */}
 
-          <TodoEditor onSubmit={this.addTodo} value={this.state.inputValue}/>
+          {/* <TodoEditor onSubmit={this.addTodo} value={this.state.inputValue}/> */}
 
       
 
           
 
-          <div>
+          {/* <div>
             <p>Общее кол-во: {todos.length}</p>
             <p>Кол-во выполненых: {completedTodos}</p>
           </div>
@@ -158,9 +177,7 @@ class App extends Component {
           <TodoList 
             todos={visibleTodos} 
             onDeleteTodo={this.deleteTodo}
-            onToggleCompleted={this.toggleCompleted}  
-
-          />
+            onToggleCompleted={this.toggleCompleted}/> */}
       </div>
     );
   }
