@@ -19,10 +19,11 @@ export const Controls = ({ current, total, onChange }) => {
     );
   };
 
+  export default Controls
+ 
+  
 
-   const capitilized = (string) => {
-    return 
-  }
+ 
 
   
   

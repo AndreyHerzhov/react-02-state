@@ -1,7 +1,7 @@
 export const Progress = ({ current, total }) => {
-    return (
-      <p>
-        {current}/{total}
-      </p>
-    );
-  };
+  return (
+    <p>
+      {current}/{total}
+    </p>
+  );
+};

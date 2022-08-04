@@ -16,8 +16,8 @@ import Container from "./Container";
 // import tabs from './tabs.json';
 // import { ThemeProvider } from 'styled-components';
 // import { GlobalStyle } from 'components/GlobalStyle';
-import { Reader } from './Reader/Reader.jsx'
-import publication from '../publications.json'
+// import { Reader } from './Reader/Reader.jsx'
+// import publication from '../publications.json'
 // import { Example1 } from './Example1.jsx';
  
 // import './index.css';
@@ -74,6 +74,8 @@ class App extends Component {
     // console.log(prevState)
     // console.log(this.state)
   }
+
+  
 
    addTodo = message => {
      
@@ -162,8 +164,9 @@ class App extends Component {
 
      return (
         <Container>
+          
 
-          <Reader items={publication} />
+          {/* <Reader items={publication} /> */}
           {/* <ThemeProvider theme={{}}>
             <GlobalStyle />
            
