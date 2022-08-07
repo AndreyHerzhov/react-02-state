@@ -2,17 +2,18 @@ import React, {Component} from "react";
 // import Counter from "./Counter";
 // import Dropdown from "./Dropdown"
 // import ColorPicker from "./ColorPicker"
-// import TodoList from "./TodoList";
+import TodoList from "./TodoList";
 // import Form from "./Form";
-// import TodoEditor from './TodoEditor'
+import TodoEditor from './TodoEditor'
+import Filter from "./Filter/Filter";
 // import Filter from "./Filter/Filter";
 import shortid from "shortid";
-// import Modal from './Modal/Modal'
+import Modal from './Modal/Modal'
 // import Tabs from "./Tabs/Tabs";
 // import Clock from "./Clock";
 import Container from "./Container";
-// import IconButton from "./IconButton";
-// import { ReactComponent as AddIcon} from "../icons/add.svg"
+import IconButton from "./IconButton";
+import { ReactComponent as AddIcon} from "../icons/add.svg"
 // import tabs from './tabs.json';
 // import { ThemeProvider } from 'styled-components';
 // import { GlobalStyle } from 'components/GlobalStyle';
@@ -63,7 +64,6 @@ class App extends Component {
   
   componentDidUpdate( prevProps ,prevState ) {
     // console.log("App componentDidUpdate")
-
     const nextTodos = this.state.todos
     const prevTodos = prevState.todos
     if(nextTodos !==  prevTodos) {
@@ -154,9 +154,9 @@ class App extends Component {
 
 
   render() {
-    // const { todos, filter, showModal} = this.state
-    // const visibleTodos = this.getVisiblesTodos()
-    // const completedTodos = this.getCompletedTodos()
+    const { todos, filter, showModal} = this.state
+    const visibleTodos = this.getVisiblesTodos()
+    const completedTodos = this.getCompletedTodos()
 
 
     
@@ -174,18 +174,18 @@ class App extends Component {
           </ThemeProvider> */}
          
            
-         {/* <IconButton onClick={this.toggleModal}>
+         <IconButton onClick={this.toggleModal}>
            <AddIcon width='40' height='40' fill='red'/> 
-         </IconButton> */}
+         </IconButton>
 
            {/* <Tabs items={tabs}/> */}
-          {/* <h1>Состояние компонента</h1>
+          <h1>Состояние компонента</h1>
           <button type="button" onClick={this.toggleModal}>Open Modal</button>
           {showModal &&  
               <Modal onClose={this.toggleModal}>
                   <TodoEditor onSubmit={this.addTodo} value={this.state.inputValue}/>
               </Modal> 
-              } */}
+              }
           
           
           {/* <Form onSubmit={this.formSubmitHandler}/> */}
@@ -201,7 +201,7 @@ class App extends Component {
 
           
 
-          {/* <div>
+          <div>
             <p>Общее кол-во: {todos.length}</p>
             <p>Кол-во выполненых: {completedTodos}</p>
           </div>
@@ -210,7 +210,7 @@ class App extends Component {
           <TodoList 
             todos={visibleTodos} 
             onDeleteTodo={this.deleteTodo}
-            onToggleCompleted={this.toggleCompleted}/> */}
+            onToggleCompleted={this.toggleCompleted}/>
       </Container>
     );
   }
